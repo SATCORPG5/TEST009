@@ -1,39 +1,36 @@
-// ===========================
-// SATCORP CONCIERGE SYSTEMS
-// Interactive JavaScript
-// ===========================
+document.addEventListener('DOMContentLoaded', () => {
+    const navItems = document.querySelectorAll('.nav-links li');
+    const modules = document.querySelectorAll('.module');
+    const typedText = document.getElementById('typed');
 
-// Wait for DOM to be fully loaded
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // ===========================
-    // Mobile Menu Toggle
-    // ===========================
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navMenu = document.querySelector('.nav-menu');
-    const navLinks = document.querySelectorAll('.nav-menu a');
-    
-    if (menuToggle) {
-        menuToggle.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
-            
-            // Animate hamburger to X
-            const spans = menuToggle.querySelectorAll('span');
-            if (navMenu.classList.contains('active')) {
-                spans[0].style.transform = 'rotate(45deg) translateY(10px)';
-                spans[1].style.opacity = '0';
-                spans[2].style.transform = 'rotate(-45deg) translateY(-10px)';
-            } else {
-                spans[0].style.transform = '';
-                spans[1].style.opacity = '';
-                spans[2].style.transform = '';
-            }
+    // Navigation Switcher
+    navItems.forEach(item => {
+        item.addEventListener('click', () => {
+            // Update UI
+            navItems.forEach(nav => nav.classList.remove('active'));
+            item.classList.add('active');
+
+            // Switch Modules
+            const target = item.getAttribute('data-target');
+            modules.forEach(mod => {
+                mod.classList.remove('active');
+                if (mod.id === target) {
+                    mod.classList.add('active');
+                }
+            });
+
+            // Update Terminal
+            updateTerminal(`Initalizing Module: ${target.toUpperCase()}... Success.`);
         });
-        
-        // Close menu when link is clicked
-        navLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                navMenu.classList.remove('active');
+    });
+
+    function updateTerminal(message) {
+        typedText.textContent = message;
+    }
+
+    // Small Easter Egg: Console Log for SATCORP Standards
+    console.log("SATCORP: Technology is a force multiplier, not a crutch.");
+});
                 const spans = menuToggle.querySelectorAll('span');
                 spans[0].style.transform = '';
                 spans[1].style.opacity = '';
