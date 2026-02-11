@@ -1,231 +1,430 @@
-// Custom Alien Cursor
-const cursor = document.getElementById('alienCursor');
+// SATCORP - Concierge Empire Interactive Script
 
-document.addEventListener('mousemove', (e) => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
-});
-
-// Animate signal strength
-const signal = document.getElementById('signal');
-let signalValue = 75;
-let increasing = true;
-
-setInterval(() => {
-    if (increasing) {
-        signalValue += Math.random() * 5;
-        if (signalValue >= 100) {
-            signalValue = 100;
-            increasing = false;
+// ============================================
+// Smooth Scroll Navigation
+// ============================================
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+            // Close mobile menu if open
+            if (navLinks.classList.contains('active')) {
+                toggleMobileMenu();
+            }
         }
-    } else {
-        signalValue -= Math.random() * 3;
-        if (signalValue <= 60) {
-            signalValue = 60;
-            increasing = true;
-        }
-    }
-    signal.style.width = signalValue + '%';
-}, 200);
-
-// Life forms counter
-const lifeformsElement = document.getElementById('lifeforms');
-let lifeforms = 0;
-
-const countInterval = setInterval(() => {
-    if (lifeforms < 1337) {
-        lifeforms += Math.floor(Math.random() * 50) + 1;
-        if (lifeforms > 1337) lifeforms = 1337;
-        lifeformsElement.textContent = lifeforms.toLocaleString();
-    } else {
-        clearInterval(countInterval);
-    }
-}, 100);
-
-// Distance updater
-const distanceElement = document.getElementById('distance');
-let distance = 42000;
-
-setInterval(() => {
-    distance -= Math.floor(Math.random() * 100) + 50;
-    if (distance < 0) distance = 42000;
-    distanceElement.textContent = distance.toLocaleString() + ' km';
-}, 1000);
-
-// Alien messages
-const messages = [
-    "Greetings, Earthling. We come in peace... 🌌",
-    "Your species shows promise. Initiating cultural exchange protocols. 👽",
-    "We have been watching. Your coffee is... acceptable. ☕",
-    "Resistance is futile. Just kidding! We're friendly. 😄",
-    "The answer to the universe is NOT 42. It's 43. Sorry. 🔢",
-    "We traveled light years for your memes. Worth it. 🖼️",
-    "Your music intrigues us. Especially the dubstep. 🎵",
-    "Humans are 70% water. We are 100% awesome. 💧",
-    "Take us to your leader... or just your pizza. 🍕",
-    "Scanning complete. Your planet has too many cats. We approve. 🐱"
-];
-
-const messageElement = document.getElementById('alien-message');
-const contactBtn = document.getElementById('contactBtn');
-
-contactBtn.addEventListener('click', () => {
-    // Button animation
-    contactBtn.style.transform = 'scale(0.95)';
-    setTimeout(() => {
-        contactBtn.style.transform = 'scale(1)';
-    }, 100);
-
-    // Change message
-    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-    messageElement.style.opacity = '0';
-    
-    setTimeout(() => {
-        messageElement.textContent = randomMessage;
-        messageElement.style.opacity = '1';
-    }, 300);
-
-    // Add terminal message
-    addTerminalMessage('> Communication established...');
-    setTimeout(() => {
-        addTerminalMessage('> Message received: "' + randomMessage.substring(0, 30) + '..."');
-    }, 500);
-    setTimeout(() => {
-        addTerminalMessage('> Status: <span class="success">ACTIVE</span>');
-    }, 1000);
-});
-
-// Terminal message function
-const terminal = document.getElementById('terminal');
-
-function addTerminalMessage(message) {
-    const p = document.createElement('p');
-    p.innerHTML = message;
-    terminal.appendChild(p);
-    
-    // Scroll to bottom
-    terminal.scrollTop = terminal.scrollHeight;
-    
-    // Keep only last 10 messages
-    if (terminal.children.length > 10) {
-        terminal.removeChild(terminal.firstChild);
-    }
-}
-
-// Random terminal activity
-setInterval(() => {
-    const randomMessages = [
-        '> Scanning sector 7G...',
-        '> Quantum entanglement stable',
-        '> Warp drive charging: ' + Math.floor(Math.random() * 100) + '%',
-        '> Detecting life signs...',
-        '> Analyzing Earth broadcasts',
-        '> Translating binary code',
-        '> Monitoring cosmic radiation',
-        '> Updating star charts'
-    ];
-    
-    if (Math.random() > 0.7) {
-        addTerminalMessage(randomMessages[Math.floor(Math.random() * randomMessages.length)]);
-    }
-}, 5000);
-
-// Card hover effects
-const cards = document.querySelectorAll('.card');
-
-cards.forEach(card => {
-    card.addEventListener('mouseenter', () => {
-        card.style.borderColor = '#ff00ff';
-    });
-    
-    card.addEventListener('mouseleave', () => {
-        card.style.borderColor = '#00ff88';
     });
 });
 
-// Random starfield twinkle
-function createTwinkle() {
-    const twinkle = document.createElement('div');
-    twinkle.style.position = 'fixed';
-    twinkle.style.width = '2px';
-    twinkle.style.height = '2px';
-    twinkle.style.borderRadius = '50%';
-    twinkle.style.background = '#fff';
-    twinkle.style.left = Math.random() * window.innerWidth + 'px';
-    twinkle.style.top = Math.random() * window.innerHeight + 'px';
-    twinkle.style.pointerEvents = 'none';
-    twinkle.style.zIndex = '0';
-    twinkle.style.animation = 'twinkle 2s ease-in-out';
-    
-    document.body.appendChild(twinkle);
-    
-    setTimeout(() => {
-        twinkle.remove();
-    }, 2000);
+// ============================================
+// Mobile Navigation Toggle
+// ============================================
+const navToggle = document.querySelector('.nav-toggle');
+const navLinks = document.querySelector('.nav-links');
+
+function toggleMobileMenu() {
+    navLinks.classList.toggle('active');
+    navToggle.classList.toggle('active');
+    document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
 }
 
-// Add CSS for twinkle animation
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes twinkle {
-        0%, 100% { opacity: 0; transform: scale(0); }
-        50% { opacity: 1; transform: scale(1.5); }
+if (navToggle) {
+    navToggle.addEventListener('click', toggleMobileMenu);
+}
+
+// ============================================
+// Navbar Scroll Effect
+// ============================================
+let lastScroll = 0;
+const nav = document.querySelector('.nav');
+
+window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    
+    // Add shadow on scroll
+    if (currentScroll > 100) {
+        nav.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.5)';
+    } else {
+        nav.style.boxShadow = 'none';
+    }
+    
+    // Hide/show navbar on scroll
+    if (currentScroll > lastScroll && currentScroll > 500) {
+        nav.style.transform = 'translateY(-100%)';
+    } else {
+        nav.style.transform = 'translateY(0)';
+    }
+    
+    lastScroll = currentScroll;
+});
+
+// ============================================
+// Intersection Observer for Fade-in Animations
+// ============================================
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, observerOptions);
+
+// Observe all cards and sections
+document.querySelectorAll('.service-card, .operation-card, .client-card, .diff-item, .process-step').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+});
+
+// ============================================
+// Stats Counter Animation
+// ============================================
+function animateCounter(element, target, duration = 2000) {
+    const start = 0;
+    const increment = target / (duration / 16);
+    let current = start;
+    
+    const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+            element.textContent = target === Infinity ? '∞' : Math.ceil(target);
+            clearInterval(timer);
+        } else {
+            element.textContent = Math.ceil(current);
+        }
+    }, 16);
+}
+
+// Trigger counter animation when stats are in view
+const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const numbers = entry.target.querySelectorAll('.stat-number');
+            numbers.forEach(num => {
+                const target = num.textContent === '∞' ? '∞' : parseInt(num.textContent);
+                if (target !== '∞' && !num.classList.contains('counted')) {
+                    num.classList.add('counted');
+                    num.textContent = '0';
+                    animateCounter(num, target);
+                }
+            });
+            statsObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.5 });
+
+const heroStats = document.querySelector('.hero-stats');
+if (heroStats) {
+    statsObserver.observe(heroStats);
+}
+
+// ============================================
+// Parallax Effect for Hero Background
+// ============================================
+const heroBackground = document.querySelector('.hero-background');
+
+window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    if (heroBackground && scrolled < window.innerHeight) {
+        heroBackground.style.transform = `translateY(${scrolled * 0.5}px)`;
+        heroBackground.style.opacity = 1 - (scrolled / window.innerHeight);
+    }
+});
+
+// ============================================
+// Dynamic Cursor Effect (Desktop Only)
+// ============================================
+if (window.innerWidth > 968) {
+    const cursor = document.createElement('div');
+    cursor.className = 'custom-cursor';
+    cursor.style.cssText = `
+        position: fixed;
+        width: 20px;
+        height: 20px;
+        border: 2px solid #d4af37;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        transition: transform 0.15s ease, opacity 0.15s ease;
+        opacity: 0;
+    `;
+    document.body.appendChild(cursor);
+
+    const cursorDot = document.createElement('div');
+    cursorDot.style.cssText = `
+        position: fixed;
+        width: 4px;
+        height: 4px;
+        background: #d4af37;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 10000;
+        transition: transform 0.05s ease;
+        opacity: 0;
+    `;
+    document.body.appendChild(cursorDot);
+
+    let mouseX = 0, mouseY = 0;
+    let cursorX = 0, cursorY = 0;
+    let dotX = 0, dotY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        cursor.style.opacity = '1';
+        cursorDot.style.opacity = '1';
+    });
+
+    document.addEventListener('mouseleave', () => {
+        cursor.style.opacity = '0';
+        cursorDot.style.opacity = '0';
+    });
+
+    function animateCursor() {
+        // Smooth follow effect
+        cursorX += (mouseX - cursorX) * 0.15;
+        cursorY += (mouseY - cursorY) * 0.15;
+        dotX += (mouseX - dotX) * 0.25;
+        dotY += (mouseY - dotY) * 0.25;
+
+        cursor.style.left = cursorX - 10 + 'px';
+        cursor.style.top = cursorY - 10 + 'px';
+        cursorDot.style.left = dotX - 2 + 'px';
+        cursorDot.style.top = dotY - 2 + 'px';
+
+        requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    // Cursor hover effects
+    document.querySelectorAll('a, button, .nav-link, .cta-button, .contact-button').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursor.style.transform = 'scale(1.5)';
+            cursor.style.borderColor = '#ffffff';
+        });
+        el.addEventListener('mouseleave', () => {
+            cursor.style.transform = 'scale(1)';
+            cursor.style.borderColor = '#d4af37';
+        });
+    });
+}
+
+// ============================================
+// Service Card Hover Effect
+// ============================================
+document.querySelectorAll('.service-card, .operation-card').forEach(card => {
+    card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-8px)';
+    });
+    
+    card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0)';
+    });
+});
+
+// ============================================
+// Scroll Progress Indicator
+// ============================================
+const scrollProgress = document.createElement('div');
+scrollProgress.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #d4af37, #b8941f);
+    z-index: 9999;
+    transition: width 0.1s ease;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+`;
+document.body.appendChild(scrollProgress);
+
+window.addEventListener('scroll', () => {
+    const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (window.pageYOffset / windowHeight) * 100;
+    scrollProgress.style.width = scrolled + '%';
+});
+
+// ============================================
+// Typed Text Effect for Hero Subtitle
+// ============================================
+const subtitle = document.querySelector('.hero-subtitle');
+if (subtitle) {
+    const text = subtitle.textContent;
+    subtitle.textContent = '';
+    subtitle.style.opacity = '1';
+    
+    let index = 0;
+    function typeText() {
+        if (index < text.length) {
+            subtitle.textContent += text.charAt(index);
+            index++;
+            setTimeout(typeText, 50);
+        }
+    }
+    
+    // Start typing after a short delay
+    setTimeout(typeText, 1000);
+}
+
+// ============================================
+// Add Subtle Animation to Operation Icons
+// ============================================
+document.querySelectorAll('.operation-icon').forEach((icon, index) => {
+    icon.style.animationDelay = `${index * 0.1}s`;
+    icon.style.animation = 'fadeInScale 0.6s ease forwards';
+});
+
+// Add keyframe animation via style tag
+const styleSheet = document.createElement('style');
+styleSheet.textContent = `
+    @keyframes fadeInScale {
+        from {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+    
+    .nav-links.active {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 73px;
+        left: 0;
+        right: 0;
+        background: rgba(10, 10, 10, 0.98);
+        padding: 2rem;
+        gap: 1.5rem;
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid #2a2a2a;
+    }
+    
+    .nav-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(8px, 8px);
+    }
+    
+    .nav-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .nav-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -7px);
     }
 `;
-document.head.appendChild(style);
+document.head.appendChild(styleSheet);
 
-// Create twinkles periodically
-setInterval(createTwinkle, 500);
-
-// Easter egg: Konami code
-let konamiCode = [];
-const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-
-document.addEventListener('keydown', (e) => {
-    konamiCode.push(e.key);
-    konamiCode = konamiCode.slice(-10);
-    
-    if (konamiCode.join(',') === konamiSequence.join(',')) {
-        activateSecretMode();
-    }
-});
-
-function activateSecretMode() {
-    addTerminalMessage('> 🎮 KONAMI CODE DETECTED!');
-    addTerminalMessage('> Activating SECRET ALIEN MODE...');
-    addTerminalMessage('> 👾 You have unlocked: HYPERDRIVE');
-    
-    // Add rainbow colors to all borders
-    document.querySelectorAll('section').forEach((section, index) => {
-        const colors = ['#ff0000', '#ff7f00', '#ffff00', '#00ff00', '#0000ff', '#4b0082', '#9400d3'];
-        section.style.borderColor = colors[index % colors.length];
+// ============================================
+// Lazy Load Background Images
+// ============================================
+const lazyBackgrounds = document.querySelectorAll('[data-bg]');
+if ('IntersectionObserver' in window) {
+    const bgObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.backgroundImage = `url(${entry.target.dataset.bg})`;
+                bgObserver.unobserve(entry.target);
+            }
+        });
     });
     
-    // Make UFO spin
-    const ufo = document.querySelector('.ufo');
-    ufo.style.animation = 'float 3s ease-in-out infinite, spin 2s linear infinite';
-    
-    // Add spin animation
-    const spinStyle = document.createElement('style');
-    spinStyle.textContent = `
-        @keyframes spin {
-            from { transform: translateX(-50%) rotate(0deg); }
-            to { transform: translateX(-50%) rotate(360deg); }
-        }
-    `;
-    document.head.appendChild(spinStyle);
+    lazyBackgrounds.forEach(bg => bgObserver.observe(bg));
 }
 
-// Initialize
-console.log('%c👽 ALIEN PROTOCOL INITIATED', 'color: #00ff88; font-size: 20px; font-weight: bold;');
-console.log('%cWelcome to the intergalactic network!', 'color: #ff00ff; font-size: 14px;');
-console.log('%cTry the Konami code for a secret... 🎮', 'color: #00ffff; font-size: 12px;');
+// ============================================
+// Performance: Debounce Scroll Events
+// ============================================
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
 
-// Add initial terminal messages
-setTimeout(() => {
-    addTerminalMessage('> System initialized successfully');
-}, 1500);
+// ============================================
+// Console Easter Egg
+// ============================================
+console.log('%c SATCORP ', 'background: #d4af37; color: #0a0a0a; font-size: 20px; font-weight: bold; padding: 10px;');
+console.log('%c Concierge Creative Operations ', 'color: #d4af37; font-size: 14px; padding: 5px;');
+console.log('%c Technology is a force multiplier, not a crutch. ', 'color: #a0a0a0; font-style: italic;');
 
-setTimeout(() => {
-    addTerminalMessage('> Awaiting human interaction...');
-}, 2500);
+// ============================================
+// Initialize All Functions on Page Load
+// ============================================
+document.addEventListener('DOMContentLoaded', () => {
+    // Fade in hero content
+    const heroContent = document.querySelector('.hero-content');
+    if (heroContent) {
+        heroContent.style.opacity = '0';
+        heroContent.style.transform = 'translateY(30px)';
+        setTimeout(() => {
+            heroContent.style.transition = 'opacity 1s ease, transform 1s ease';
+            heroContent.style.opacity = '1';
+            heroContent.style.transform = 'translateY(0)';
+        }, 100);
+    }
+    
+    console.log('SATCORP Empire initialized successfully.');
+});
+
+// ============================================
+// Add Click Ripple Effect to Buttons
+// ============================================
+document.querySelectorAll('.cta-button, .contact-button').forEach(button => {
+    button.addEventListener('click', function(e) {
+        const ripple = document.createElement('span');
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+        
+        ripple.style.cssText = `
+            position: absolute;
+            width: ${size}px;
+            height: ${size}px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            left: ${x}px;
+            top: ${y}px;
+            transform: scale(0);
+            animation: ripple 0.6s ease-out;
+            pointer-events: none;
+        `;
+        
+        this.style.position = 'relative';
+        this.style.overflow = 'hidden';
+        this.appendChild(ripple);
+        
+        setTimeout(() => ripple.remove(), 600);
+    });
+});
+
+// Add ripple animation
+const rippleStyle = document.createElement('style');
+rippleStyle.textContent = `
+    @keyframes ripple {
+        to {
+            transform: scale(2);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(rippleStyle);
