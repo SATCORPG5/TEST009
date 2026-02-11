@@ -1,40 +1,75 @@
-<!DOCTYPE html>
-<html lang="en">
+// ===================== index.html =====================
+
+<!DOCTYPE html><html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SATCORP | Concierge Operator</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SATCORP — Concierge Systems</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <div class="scanline"></div>
-    
-    <nav class="sidebar">
-        <div class="logo">SATCORP</div>
-        <ul class="nav-links">
-            <li class="active" data-target="core">01_IDENTITY</li>
-            <li data-target="brand">02_VISUALS</li>
-            <li data-target="web">03_SYSTEMS</li>
-            <li data-target="dev">04_ENGINE</li>
-        </ul>
-        <div class="status-bar">
-            <p>SYSTEM: ONLINE</p>
-            <p>OP: ANU</p>
-        </div>
+  <div id="cursor"></div>  <header class="nav">
+    <div class="logo">SATCORP</div>
+    <nav>
+      <a href="#identity">Identity</a>
+      <a href="#systems">Systems</a>
+      <a href="#web">Web</a>
+      <a href="#ai">AI</a>
+      <a href="#world">Worldbuilding</a>
+      <a href="#contact">Contact</a>
     </nav>
+  </header>  <section class="hero">
+    <h1>Concierge Intelligence</h1>
+    <p>Ideas → Structured Systems → Deployable Reality</p>
+    <button onclick="scrollToSection('contact')">Request Access</button>
+  </section>  <section id="identity" class="panel">
+    <h2>Operator Core</h2>
+    <p>ANU — translating abstract intent into working infrastructure.</p>
+  </section>  <section id="systems" class="panel">
+    <h2>Systems Architecture</h2>
+    <ul>
+      <li>Workflow mapping</li>
+      <li>Operational pipelines</li>
+      <li>Automation logic</li>
+    </ul>
+  </section>  <section id="web" class="panel">
+    <h2>Web Design</h2>
+    <p>Responsive platforms, dashboards, portals.</p>
+  </section>  <section id="ai" class="panel">
+    <h2>AI Operations</h2>
+    <p>Custom agents, prompt frameworks, automation execution.</p>
+  </section>  <section id="world" class="panel">
+    <h2>Ki‑Ra Studios</h2>
+    <p>Interactive worlds, systems, and visual canon development.</p>
+  </section>  <section id="contact" class="panel contact">
+    <h2>Enter the Network</h2>
+    <input type="text" placeholder="Name" />
+    <input type="text" placeholder="Project Type" />
+    <button>Transmit Request</button>
+  </section>  <script src="script.js"></script></body>
+</html>// ===================== styles.css ===================== body { margin: 0; background: #07090d; color: #e6ecff; font-family: "Segoe UI", sans-serif; }
 
-    <main class="content">
-        <section id="core" class="module active">
-            <header>
-                <h2 class="glitch" data-text="SYSTEM ARCHITECT">SYSTEM ARCHITECT</h2>
-                <p class="subtitle">Concierge-Level Execution | Creative Operations</p>
-            </header>
-            <div class="grid-container">
-                <div class="card">
-                    <h3>THE CONCIERGE MODEL</h3>
-                    <p>Translating vague ideas into deployable assets. Clarity. Scope. Execution. Polish.</p>
-                </div>
+.nav { position: fixed; width: 100%; display: flex; justify-content: space-between; padding: 20px 40px; background: rgba(10,12,18,0.6); backdrop-filter: blur(8px); }
+
+.logo { letter-spacing: 4px; font-weight: bold; }
+
+nav a { margin-left: 20px; color: #aab4ff; text-decoration: none; }
+
+.hero { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+
+.hero h1 { font-size: 4rem; letter-spacing: 6px; }
+
+.panel { padding: 120px 20px; max-width: 900px; margin: auto; }
+
+.contact input { display: block; margin: 10px auto; padding: 12px; width: 260px; background: #0f1320; border: 1px solid #2c3b80; color: white; }
+
+button { padding: 12px 20px; background: linear-gradient(90deg,#5562ff,#9a7bff); border: none; color: white; cursor: pointer; }
+
+#cursor { position: fixed; width: 12px; height: 12px; border-radius: 50%; background: #9a7bff; pointer-events: none; transform: translate(-50%,-50%); }
+
+// ===================== script.js ===================== const cursor = document.getElementById("cursor"); document.addEventListener("mousemove", e => { cursor.style.left = e.clientX + "px"; cursor.style.top = e.clientY + "px"; });
+
+function scrollToSection(id) { document.getElementById(id).scrollIntoView({behavior:'smooth'}); }                </div>
                 <div class="card highlight">
                     <h3>OPERATOR VALUE</h3>
                     <p>End-to-end problem solver bridging design, automation, and high-performance workflows.</p>
