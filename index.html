@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>👽 Alien Encounter - First Contact</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="stars2"></div>
+    <div class="stars3"></div>
+    
+    <div class="container">
+        <header>
+            <div class="ufo">
+                <div class="ufo-top"></div>
+                <div class="ufo-bottom"></div>
+                <div class="beam"></div>
+            </div>
+            <h1 class="glitch" data-text="ALIEN ENCOUNTER">ALIEN ENCOUNTER</h1>
+            <p class="tagline">First Contact Protocol Initiated</p>
+        </header>
+
+        <main>
+            <section class="mission-control">
+                <h2>🛸 Mission Control</h2>
+                <div class="status-panel">
+                    <div class="status-item">
+                        <span class="label">Signal Strength:</span>
+                        <div class="progress-bar">
+                            <div class="progress" id="signal"></div>
+                        </div>
+                    </div>
+                    <div class="status-item">
+                        <span class="label">Life Forms Detected:</span>
+                        <span class="value" id="lifeforms">0</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="label">Distance to Mothership:</span>
+                        <span class="value" id="distance">42,000 km</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="contact-panel">
+                <h2>📡 Establish Contact</h2>
+                <div class="message-box">
+                    <p id="alien-message">Greetings, Earthling. We come in peace... 🌌</p>
+                </div>
+                <button class="cta-button" id="contactBtn">
+                    <span>Initialize Communication</span>
+                </button>
+            </section>
+
+            <section class="gallery">
+                <h2>🌠 Recent Sightings</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon">👽</div>
+                        <h3>Alpha Centauri</h3>
+                        <p>Grey beings with advanced telepathy detected near mining colony 7.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🛸</div>
+                        <h3>Orion Belt</h3>
+                        <p>Massive disc-shaped craft observed performing impossible maneuvers.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🌌</div>
+                        <h3>Andromeda</h3>
+                        <p>Ancient signals decoded revealing galactic coordinates.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="data-stream">
+                <h2>💾 Incoming Data Stream</h2>
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <span class="terminal-title">ALIEN_PROTOCOL.exe</span>
+                        <div class="terminal-buttons">
+                            <span class="btn-close"></span>
+                            <span class="btn-minimize"></span>
+                            <span class="btn-maximize"></span>
+                        </div>
+                    </div>
+                    <div class="terminal-body" id="terminal">
+                        <p>> Decrypting alien transmission...</p>
+                        <p>> Loading quantum entanglement protocols...</p>
+                        <p>> Status: <span class="success">CONNECTED</span></p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>👾 Area 51 Research Division | Classified Level: COSMIC TOP SECRET</p>
+            <p>⚠️ Unauthorized access will result in memory wipe ⚠️</p>
+        </footer>
+    </div>
+
+    <div class="alien-cursor" id="alienCursor"></div>
+    
+    <script src="script.js"></script>
+</body>
+              </html>
