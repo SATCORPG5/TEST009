@@ -1,4 +1,282 @@
+/* styles.css – Dark Web Matrix / KYRAX Tactical Operator */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
 :root {
+  --matrix-green: #00ff41;
+  --matrix-dim: #0a3b0a;
+  --matrix-bg: #0c0c0c;
+  --terminal-black: #0a0f0a;
+  --glow: 0 0 12px rgba(0, 255, 65, 0.4);
+  --scanline: rgba(0, 20, 0, 0.6);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--matrix-bg);
+  font-family: 'Share Tech Mono', 'Courier New', monospace;
+  color: var(--matrix-green);
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  text-shadow: 0 0 6px var(--matrix-green);
+}
+
+/* ---------- MATRIX GRID (background) ---------- */
+.matrix-grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(var(--matrix-dim) 1px, transparent 1px),
+    linear-gradient(90deg, var(--matrix-dim) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.3;
+  z-index: 0;
+  pointer-events: none;
+  animation: matrix-drift 60s linear infinite;
+}
+
+@keyframes matrix-drift {
+  0% { background-position: 0 0; }
+  100% { background-position: 40px 40px; }
+}
+
+/* scanlines / CRT effect */
+.scan-lines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.1) 0px,
+    rgba(0, 255, 65, 0.02) 2px,
+    transparent 3px,
+    transparent 5px
+  );
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.5;
+}
+
+.glitch-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 50%, rgba(0,255,65,0.02) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+  animation: pulse-glow 8s infinite alternate;
+}
+
+@keyframes pulse-glow {
+  0% { opacity: 0.2; }
+  100% { opacity: 0.5; }
+}
+
+/* ---------- TERMINAL (MAIN UI) ---------- */
+.terminal {
+  position: relative;
+  z-index: 10;
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 1.8rem;
+  background: rgba(8, 12, 8, 0.82);
+  backdrop-filter: blur(2px);
+  border: 1px solid var(--matrix-green);
+  box-shadow: 0 0 25px rgba(0, 255, 65, 0.2), inset 0 0 10px rgba(0, 20, 0, 0.8);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* status bar – top */
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dashed var(--matrix-green);
+  padding-bottom: 0.6rem;
+  font-size: 0.85rem;
+  color: #b3ffb3;
+  letter-spacing: 2px;
+}
+
+.status-tag {
+  background: #0f1a0f;
+  padding: 0.2rem 0.8rem;
+  border-left: 3px solid var(--matrix-green);
+  box-shadow: inset 0 0 5px black;
+}
+
+/* display panel — KYRAX tactical core */
+.display-panel {
+  border: 1px solid #1f3a1f;
+  background: #030703;
+  padding: 1.5rem 1.2rem;
+  box-shadow: inset 0 0 18px #001a00;
+  position: relative;
+}
+
+.kyrax-identity {
+  font-size: 1.7rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #ccffcc;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid #2f4f2f;
+  padding-bottom: 0.7rem;
+}
+
+.prompt {
+  color: #00ff95;
+  font-size: 2rem;
+  transform: translateY(-4px);
+}
+
+#kyrax-callsign {
+  letter-spacing: 6px;
+  background: linear-gradient(45deg, #b3ffb3, #00ff41);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 6px #00aa2a);
+}
+
+.cursor-blink {
+  animation: blink 1.2s step-end infinite;
+  font-size: 2rem;
+  color: var(--matrix-green);
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* output window */
+.output-window {
+  min-height: 160px;
+  max-height: 200px;
+  overflow-y: auto;
+  padding: 0.5rem;
+  background: rgba(0, 10, 0, 0.7);
+  border-left: 4px solid #1f5f1f;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  scrollbar-width: thin;
+  scrollbar-color: var(--matrix-green) #002200;
+}
+
+.output-window::-webkit-scrollbar {
+  width: 6px;
+}
+.output-window::-webkit-scrollbar-track {
+  background: #001100;
+}
+.output-window::-webkit-scrollbar-thumb {
+  background: #00aa2a;
+  box-shadow: inset 0 0 6px black;
+}
+
+.line {
+  margin-bottom: 0.35rem;
+  word-break: break-word;
+}
+
+.timestamp {
+  color: #55aa55;
+  margin-right: 12px;
+  opacity: 0.8;
+}
+
+/* input terminal */
+.input-area {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  background: #0b100b;
+  padding: 0.5rem 1rem;
+  border: 1px solid #2e6b2e;
+  box-shadow: 0 0 15px rgba(0, 80, 0, 0.5);
+}
+
+.input-label {
+  font-size: 1.1rem;
+  color: #4aff8b;
+  white-space: nowrap;
+}
+
+#command {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--matrix-green);
+  font-family: inherit;
+  font-size: 1.1rem;
+  padding: 0.4rem 0;
+  border-bottom: 1px dashed #2f8f2f;
+  caret-color: #00ff80;
+  text-shadow: 0 0 4px currentColor;
+}
+
+#command::placeholder {
+  color: #1f5f1f;
+  font-style: italic;
+  opacity: 0.8;
+}
+
+#execute-btn {
+  background: #132013;
+  border: 1px solid #00cc44;
+  color: #ccffcc;
+  padding: 0.4rem 1.4rem;
+  font-family: inherit;
+  font-weight: bold;
+  letter-spacing: 2px;
+  cursor: pointer;
+  box-shadow: 0 0 6px #00aa2a, inset 0 0 4px #003300;
+  transition: 0.2s;
+}
+
+#execute-btn:hover {
+  background: #1f3a1f;
+  border-color: #66ff66;
+  box-shadow: 0 0 16px #00ff80;
+  color: white;
+}
+
+/* footer */
+.footer-stats {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 0.5rem;
+  border-top: 1px solid #1f4f1f;
+  color: #77dd77;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+/* responsive fine-tune */
+@media (max-width: 700px) {
+  .terminal { margin: 1rem; padding: 1rem; }
+  .status-bar { flex-direction: column; align-items: start; gap: 5px; }
+  .footer-stats { flex-wrap: wrap; }
+    }:root {
     --matrix-green: #00FF41;
     --dark-bg: #030a04;
     --tactical-red: #ff3333;
