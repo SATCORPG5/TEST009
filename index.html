@@ -1,62 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KYRAX AI · MATRIX OVERRIDE</title>
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="styles.css">
-  <!-- Favicon (optional, matrix style) -->
-  <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAbUlEQVRYR+3UsQ2AIAwF0E7CBo6i/07CBG5AAi0G0JbGonHxJSfyF1h+bQsLhEBbgV3tJcYIZ1RE8C2xLvG2dgL7nCCBCeD7qVfgOmsd3ASug+/3LHgKnr8O/gSfwf8fCNE1EFeJ+jkvN0qwfzZ1CzM3AAAAAElFTkSuQmCC">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KYRAX AI - Tactical Intelligence System</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div class="matrix-bg" id="matrixCanvas"></div>
+    
+    <div class="scanline"></div>
+    
+    <header>
+        <div class="container">
+            <div class="logo">
+                <span class="logo-bracket">[</span>
+                <span class="logo-text">KYRAX</span>
+                <span class="logo-bracket">]</span>
+                <span class="logo-subtitle">AI TACTICAL SYSTEM</span>
+            </div>
+            <nav>
+                <a href="#systems" class="nav-link">SYSTEMS</a>
+                <a href="#operations" class="nav-link">OPERATIONS</a>
+                <a href="#intel" class="nav-link">INTEL</a>
+                <a href="#contact" class="nav-link">CONTACT</a>
+            </nav>
+        </div>
+    </header>
 
-  <!-- CRYPTO BACKGROUND LAYERS -->
-  <div class="matrix-grid"></div>
-  <div class="scan-lines"></div>
-  <div class="glitch-overlay"></div>
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="terminal-window">
+                    <div class="terminal-header">
+                        <span class="terminal-title">KYRAX_TACTICAL_INTERFACE v3.7.9</span>
+                        <div class="terminal-controls">
+                            <span class="control"></span>
+                            <span class="control"></span>
+                            <span class="control"></span>
+                        </div>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="terminal-line">
+                            <span class="prompt">root@kyrax:~$</span>
+                            <span class="command" id="typedText"></span>
+                            <span class="cursor">_</span>
+                        </div>
+                        <div class="terminal-output" id="terminalOutput"></div>
+                    </div>
+                </div>
+                
+                <h1 class="hero-title">
+                    <span class="glitch" data-text="KYRAX AI">KYRAX AI</span>
+                </h1>
+                <p class="hero-subtitle">TACTICAL OPERATOR INTELLIGENCE SYSTEM</p>
+                <p class="hero-tagline">PRECISION • ANALYSIS • EXECUTION</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" data-target="99.97">0</div>
+                        <div class="stat-label">UPTIME %</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" data-target="847">0</div>
+                        <div class="stat-label">OPS COMPLETED</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" data-target="0.3">0</div>
+                        <div class="stat-label">RESPONSE TIME (s)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" data-target="24">0</div>
+                        <div class="stat-label">ACTIVE SYSTEMS</div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  <!-- MAIN TERMINAL INTERFACE -->
-  <main class="terminal">
-    <!-- HEADER / STATUS BAR -->
-    <div class="status-bar">
-      <span class="status-tag">[[ KYRAX AI · TACTICAL OPERATOR ]]</span>
-      <span class="status-tag right">NODE: ACTIVE · ENCRYPTION: AES-256</span>
-    </div>
+        <section id="systems" class="section">
+            <div class="container">
+                <h2 class="section-title">
+                    <span class="title-icon">&gt;&gt;</span> TACTICAL SYSTEMS
+                </h2>
+                
+                <div class="systems-grid">
+                    <div class="system-card">
+                        <div class="system-icon">⬡</div>
+                        <h3>THREAT ANALYSIS</h3>
+                        <p>Real-time threat assessment and pattern recognition across multiple data streams.</p>
+                        <div class="system-status">
+                            <span class="status-indicator active"></span>
+                            <span>OPERATIONAL</span>
+                        </div>
+                    </div>
+                    
+                    <div class="system-card">
+                        <div class="system-icon">⬢</div>
+                        <h3>STRATEGIC PLANNING</h3>
+                        <p>AI-driven tactical recommendations with multi-scenario simulation capabilities.</p>
+                        <div class="system-status">
+                            <span class="status-indicator active"></span>
+                            <span>OPERATIONAL</span>
+                        </div>
+                    </div>
+                    
+                    <div class="system-card">
+                        <div class="system-icon">⬣</div>
+                        <h3>ENCRYPTED COMMS</h3>
+                        <p>Military-grade encryption protocols ensuring secure operational communications.</p>
+                        <div class="system-status">
+                            <span class="status-indicator active"></span>
+                            <span>OPERATIONAL</span>
+                        </div>
+                    </div>
+                    
+                    <div class="system-card">
+                        <div class="system-icon">⬟</div>
+                        <h3>INTEL PROCESSING</h3>
+                        <p>Advanced data mining and intelligence correlation from global sources.</p>
+                        <div class="system-status">
+                            <span class="status-indicator active"></span>
+                            <span>OPERATIONAL</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <!-- DYNAMIC DISPLAY (Matrix rain + KYRAX avatar) -->
-    <div class="display-panel">
-      <div class="kyrax-identity">
-        <span class="prompt">></span>
-        <span id="kyrax-callsign">KYRAX-7</span>
-        <span class="cursor-blink">_</span>
-      </div>
-      <!-- Terminal output area -->
-      <div id="output" class="output-window">
-        <p class="line"><span class="timestamp">[23:18:47]</span> ⚡ KYRAX AI core online.</p>
-        <p class="line"><span class="timestamp">[23:18:49]</span> 🔐 Multi‑layer encryption engaged.</p>
-        <p class="line"><span class="timestamp">[23:18:52]</span> 🌐 Dark web matrix – heartbeat synced.</p>
-        <p class="line"><span class="timestamp">[23:18:55]</span> 👁️ Tactical overlay ready. Awaiting orders, operator.</p>
-        <p class="line" id="dynamic-line"></p>
-      </div>
-    </div>
+        <section id="operations" class="section section-alt">
+            <div class="container">
+                <h2 class="section-title">
+                    <span class="title-icon">&gt;&gt;</span> OPERATIONS LOG
+                </h2>
+                
+                <div class="operations-terminal">
+                    <div class="op-log" id="operationsLog">
+                        <div class="log-entry">[2026-02-12 14:23:47] OPERATION SHADOWFALL - COMPLETED</div>
+                        <div class="log-entry">[2026-02-12 11:15:32] INTEL PACKAGE DELTA-9 - PROCESSED</div>
+                        <div class="log-entry">[2026-02-12 09:42:18] THREAT LEVEL UPDATED - MODERATE</div>
+                        <div class="log-entry">[2026-02-11 22:37:55] SURVEILLANCE PROTOCOL - ACTIVE</div>
+                        <div class="log-entry">[2026-02-11 18:29:41] ENCRYPTION KEY ROTATED - CONFIRMED</div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <!-- COMMAND INPUT ZONE -->
-    <div class="input-area">
-      <label for="command" class="input-label">⤷ KYRAX@matrix:~$</label>
-      <input type="text" id="command" name="command" placeholder="enter tactical command..." autofocus autocomplete="off">
-      <button id="execute-btn">EXEC</button>
-    </div>
+        <section id="intel" class="section">
+            <div class="container">
+                <h2 class="section-title">
+                    <span class="title-icon">&gt;&gt;</span> INTELLIGENCE BRIEF
+                </h2>
+                
+                <div class="intel-grid">
+                    <div class="intel-card">
+                        <div class="intel-header">CLASSIFIED - LEVEL 4</div>
+                        <h3>Neural Network Architecture</h3>
+                        <p>KYRAX operates on advanced neural pathways with quantum-resistant encryption, enabling parallel processing of tactical data streams.</p>
+                    </div>
+                    
+                    <div class="intel-card">
+                        <div class="intel-header">CLASSIFIED - LEVEL 4</div>
+                        <h3>Autonomous Operations</h3>
+                        <p>Self-learning algorithms adapt to evolving threat landscapes, providing predictive analysis and proactive countermeasures.</p>
+                    </div>
+                    
+                    <div class="intel-card">
+                        <div class="intel-header">CLASSIFIED - LEVEL 4</div>
+                        <h3>Global Network Integration</h3>
+                        <p>Seamless integration with allied intelligence networks while maintaining operational security and data sovereignty.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <!-- FOOTER / THREAT METER -->
-    <div class="footer-stats">
-      <span>🔥 THREAT LEVEL: ███░░ 62%</span>
-      <span>🛡️ ACTIVE COUNTERMEASURES: 4</span>
-      <span>⚙️ NODE: KYRAX‑PRIME</span>
-    </div>
-  </main>
+        <section id="contact" class="section section-alt">
+            <div class="container">
+                <h2 class="section-title">
+                    <span class="title-icon">&gt;&gt;</span> ESTABLISH CONTACT
+                </h2>
+                
+                <div class="contact-terminal">
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <label>OPERATOR ID:</label>
+                            <input type="text" name="operatorId" placeholder="Enter operator designation..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>SECURE CHANNEL:</label>
+                            <input type="email" name="email" placeholder="encrypted@comms.net" required>
+                        </div>
+                        <div class="form-group">
+                            <label>MISSION BRIEF:</label>
+                            <textarea name="message" rows="5" placeholder="Transmit classified information..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">
+                            <span>TRANSMIT ENCRYPTED MESSAGE</span>
+                            <span class="btn-icon">→</span>
+                        </button>
+                    </form>
+                    <div class="form-response" id="formResponse"></div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-  <!-- Scripts -->
-  <script src="script.js"></script>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2026 KYRAX AI SYSTEMS. ALL TRANSMISSIONS ENCRYPTED.</p>
+                <p class="footer-code">ACCESS CODE: KX-7739-OMEGA</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
