@@ -1,30 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KYRAX AI | Tactical Interface</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KYRAX AI · MATRIX OVERRIDE</title>
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+  <!-- Favicon (optional, matrix style) -->
+  <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAbUlEQVRYR+3UsQ2AIAwF0E7CBo6i/07CBG5AAi0G0JbGonHxJSfyF1h+bQsLhEBbgV3tJcYIZ1RE8C2xLvG2dgL7nCCBCeD7qVfgOmsd3ASug+/3LHgKnr8O/gSfwf8fCNE1EFeJ+jkvN0qwfzZ1CzM3AAAAAElFTkSuQmCC">
 </head>
 <body>
-    <canvas id="matrix-canvas"></canvas>
-    
-    <main class="terminal-container">
-        <header class="status-bar">
-            <span class="pulse">●</span> SYSTEM: ENCRYPTED // OPERATOR: KYRAX-01
-        </header>
-        
-        <div id="output-log" class="output-log">
-            <p class="system-msg">[BOOT_SEQUENCE_COMPLETE]</p>
-            <p class="kyrax-msg">> KYRAX AI Online. Tactical parameters initialized. Awaiting orders, Operator.</p>
-        </div>
 
-        <div class="input-area">
-            <span class="prompt">KYRAX_SYS_></span>
-            <input type="text" id="user-input" placeholder="Enter command..." autofocus>
-        </div>
-    </main>
+  <!-- CRYPTO BACKGROUND LAYERS -->
+  <div class="matrix-grid"></div>
+  <div class="scan-lines"></div>
+  <div class="glitch-overlay"></div>
 
-    <script src="script.js"></script>
+  <!-- MAIN TERMINAL INTERFACE -->
+  <main class="terminal">
+    <!-- HEADER / STATUS BAR -->
+    <div class="status-bar">
+      <span class="status-tag">[[ KYRAX AI · TACTICAL OPERATOR ]]</span>
+      <span class="status-tag right">NODE: ACTIVE · ENCRYPTION: AES-256</span>
+    </div>
+
+    <!-- DYNAMIC DISPLAY (Matrix rain + KYRAX avatar) -->
+    <div class="display-panel">
+      <div class="kyrax-identity">
+        <span class="prompt">></span>
+        <span id="kyrax-callsign">KYRAX-7</span>
+        <span class="cursor-blink">_</span>
+      </div>
+      <!-- Terminal output area -->
+      <div id="output" class="output-window">
+        <p class="line"><span class="timestamp">[23:18:47]</span> ⚡ KYRAX AI core online.</p>
+        <p class="line"><span class="timestamp">[23:18:49]</span> 🔐 Multi‑layer encryption engaged.</p>
+        <p class="line"><span class="timestamp">[23:18:52]</span> 🌐 Dark web matrix – heartbeat synced.</p>
+        <p class="line"><span class="timestamp">[23:18:55]</span> 👁️ Tactical overlay ready. Awaiting orders, operator.</p>
+        <p class="line" id="dynamic-line"></p>
+      </div>
+    </div>
+
+    <!-- COMMAND INPUT ZONE -->
+    <div class="input-area">
+      <label for="command" class="input-label">⤷ KYRAX@matrix:~$</label>
+      <input type="text" id="command" name="command" placeholder="enter tactical command..." autofocus autocomplete="off">
+      <button id="execute-btn">EXEC</button>
+    </div>
+
+    <!-- FOOTER / THREAT METER -->
+    <div class="footer-stats">
+      <span>🔥 THREAT LEVEL: ███░░ 62%</span>
+      <span>🛡️ ACTIVE COUNTERMEASURES: 4</span>
+      <span>⚙️ NODE: KYRAX‑PRIME</span>
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
 </body>
 </html>
