@@ -3,216 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KYRAX AI - Tactical Intelligence System</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>SATCORP</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        header {
+            background-color: #1f1f1f;
+            padding: 20px;
+            border-bottom: 2px solid #4caf50;
+        }
+        .ads {
+            margin: 20px;
+            padding: 20px;
+            background-color: #2c2c2c;
+            border: 1px solid #4caf50;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #4caf50;
+            color: #121212;
+            border: none;
+            padding: 15px 30px;
+            margin: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #388e3c;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+            padding-top: 100px;
+        }
+        .modal-content {
+            background-color: #1f1f1f;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #4caf50;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 5px;
+        }
+        .close {
+            color: #e0e0e0;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover {
+            color: #4caf50;
+            cursor: pointer;
+        }
+        #kyrax-terminal {
+            background-color: #000;
+            color: #0f0;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
-    <div class="matrix-bg" id="matrixCanvas"></div>
-    
-    <div class="scanline"></div>
-    
     <header>
-        <div class="container">
-            <div class="logo">
-                <span class="logo-bracket">[</span>
-                <span class="logo-text">KYRAX</span>
-                <span class="logo-bracket">]</span>
-                <span class="logo-subtitle">AI TACTICAL SYSTEM</span>
-            </div>
-            <nav>
-                <a href="#systems" class="nav-link">SYSTEMS</a>
-                <a href="#operations" class="nav-link">OPERATIONS</a>
-                <a href="#intel" class="nav-link">INTEL</a>
-                <a href="#contact" class="nav-link">CONTACT</a>
-            </nav>
-        </div>
+        <h1>SATCORP Tactical Operations</h1>
+        <p>Welcome to SATCORP – Your Partner in Advanced Tactical Solutions</p>
     </header>
 
-    <main>
-        <section class="hero">
-            <div class="container">
-                <div class="terminal-window">
-                    <div class="terminal-header">
-                        <span class="terminal-title">KYRAX_TACTICAL_INTERFACE v3.7.9</span>
-                        <div class="terminal-controls">
-                            <span class="control"></span>
-                            <span class="control"></span>
-                            <span class="control"></span>
-                        </div>
-                    </div>
-                    <div class="terminal-body">
-                        <div class="terminal-line">
-                            <span class="prompt">root@kyrax:~$</span>
-                            <span class="command" id="typedText"></span>
-                            <span class="cursor">_</span>
-                        </div>
-                        <div class="terminal-output" id="terminalOutput"></div>
-                    </div>
-                </div>
-                
-                <h1 class="hero-title">
-                    <span class="glitch" data-text="KYRAX AI">KYRAX AI</span>
-                </h1>
-                <p class="hero-subtitle">TACTICAL OPERATOR INTELLIGENCE SYSTEM</p>
-                <p class="hero-tagline">PRECISION • ANALYSIS • EXECUTION</p>
-                
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-number" data-target="99.97">0</div>
-                        <div class="stat-label">UPTIME %</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" data-target="847">0</div>
-                        <div class="stat-label">OPS COMPLETED</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" data-target="0.3">0</div>
-                        <div class="stat-label">RESPONSE TIME (s)</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" data-target="24">0</div>
-                        <div class="stat-label">ACTIVE SYSTEMS</div>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <section class="ads">
+        <h2>Featured Advertisements</h2>
+        <p>Discover our latest tactical gear, secure networks, and elite services. SATCORP: Precision in Every Mission.</p>
+        <!-- Add images or more ads here -->
+    </section>
 
-        <section id="systems" class="section">
-            <div class="container">
-                <h2 class="section-title">
-                    <span class="title-icon">&gt;&gt;</span> TACTICAL SYSTEMS
-                </h2>
-                
-                <div class="systems-grid">
-                    <div class="system-card">
-                        <div class="system-icon">⬡</div>
-                        <h3>THREAT ANALYSIS</h3>
-                        <p>Real-time threat assessment and pattern recognition across multiple data streams.</p>
-                        <div class="system-status">
-                            <span class="status-indicator active"></span>
-                            <span>OPERATIONAL</span>
-                        </div>
-                    </div>
-                    
-                    <div class="system-card">
-                        <div class="system-icon">⬢</div>
-                        <h3>STRATEGIC PLANNING</h3>
-                        <p>AI-driven tactical recommendations with multi-scenario simulation capabilities.</p>
-                        <div class="system-status">
-                            <span class="status-indicator active"></span>
-                            <span>OPERATIONAL</span>
-                        </div>
-                    </div>
-                    
-                    <div class="system-card">
-                        <div class="system-icon">⬣</div>
-                        <h3>ENCRYPTED COMMS</h3>
-                        <p>Military-grade encryption protocols ensuring secure operational communications.</p>
-                        <div class="system-status">
-                            <span class="status-indicator active"></span>
-                            <span>OPERATIONAL</span>
-                        </div>
-                    </div>
-                    
-                    <div class="system-card">
-                        <div class="system-icon">⬟</div>
-                        <h3>INTEL PROCESSING</h3>
-                        <p>Advanced data mining and intelligence correlation from global sources.</p>
-                        <div class="system-status">
-                            <span class="status-indicator active"></span>
-                            <span>OPERATIONAL</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <button onclick="openModal('applyModal')">Apply/Register to Become a SATCORP Client</button>
+    <button onclick="openModal('accessModal')">Access Network</button>
 
-        <section id="operations" class="section section-alt">
-            <div class="container">
-                <h2 class="section-title">
-                    <span class="title-icon">&gt;&gt;</span> OPERATIONS LOG
-                </h2>
-                
-                <div class="operations-terminal">
-                    <div class="op-log" id="operationsLog">
-                        <div class="log-entry">[2026-02-12 14:23:47] OPERATION SHADOWFALL - COMPLETED</div>
-                        <div class="log-entry">[2026-02-12 11:15:32] INTEL PACKAGE DELTA-9 - PROCESSED</div>
-                        <div class="log-entry">[2026-02-12 09:42:18] THREAT LEVEL UPDATED - MODERATE</div>
-                        <div class="log-entry">[2026-02-11 22:37:55] SURVEILLANCE PROTOCOL - ACTIVE</div>
-                        <div class="log-entry">[2026-02-11 18:29:41] ENCRYPTION KEY ROTATED - CONFIRMED</div>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <!-- Apply/Register Modal -->
+    <div id="applyModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('applyModal')">&times;</span>
+            <h2>Client Application</h2>
+            <form>
+                <label for="name">Name:</label><br>
+                <input type="text" id="name"><br><br>
+                <label for="email">Email:</label><br>
+                <input type="email" id="email"><br><br>
+                <button type="submit" onclick="alert('Application Submitted! Approval pending.')">Submit</button>
+            </form>
+            <p>Method: Email submission (expand to backend API for real use).</p>
+        </div>
+    </div>
 
-        <section id="intel" class="section">
-            <div class="container">
-                <h2 class="section-title">
-                    <span class="title-icon">&gt;&gt;</span> INTELLIGENCE BRIEF
-                </h2>
-                
-                <div class="intel-grid">
-                    <div class="intel-card">
-                        <div class="intel-header">CLASSIFIED - LEVEL 4</div>
-                        <h3>Neural Network Architecture</h3>
-                        <p>KYRAX operates on advanced neural pathways with quantum-resistant encryption, enabling parallel processing of tactical data streams.</p>
-                    </div>
-                    
-                    <div class="intel-card">
-                        <div class="intel-header">CLASSIFIED - LEVEL 4</div>
-                        <h3>Autonomous Operations</h3>
-                        <p>Self-learning algorithms adapt to evolving threat landscapes, providing predictive analysis and proactive countermeasures.</p>
-                    </div>
-                    
-                    <div class="intel-card">
-                        <div class="intel-header">CLASSIFIED - LEVEL 4</div>
-                        <h3>Global Network Integration</h3>
-                        <p>Seamless integration with allied intelligence networks while maintaining operational security and data sovereignty.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="section section-alt">
-            <div class="container">
-                <h2 class="section-title">
-                    <span class="title-icon">&gt;&gt;</span> ESTABLISH CONTACT
-                </h2>
-                
-                <div class="contact-terminal">
-                    <form class="contact-form" id="contactForm">
-                        <div class="form-group">
-                            <label>OPERATOR ID:</label>
-                            <input type="text" name="operatorId" placeholder="Enter operator designation..." required>
-                        </div>
-                        <div class="form-group">
-                            <label>SECURE CHANNEL:</label>
-                            <input type="email" name="email" placeholder="encrypted@comms.net" required>
-                        </div>
-                        <div class="form-group">
-                            <label>MISSION BRIEF:</label>
-                            <textarea name="message" rows="5" placeholder="Transmit classified information..." required></textarea>
-                        </div>
-                        <button type="submit" class="btn-submit">
-                            <span>TRANSMIT ENCRYPTED MESSAGE</span>
-                            <span class="btn-icon">→</span>
-                        </button>
-                    </form>
-                    <div class="form-response" id="formResponse"></div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <p>&copy; 2026 KYRAX AI SYSTEMS. ALL TRANSMISSIONS ENCRYPTED.</p>
-                <p class="footer-code">ACCESS CODE: KX-7739-OMEGA</p>
+    <!-- Access Network Modal (KYRAX Terminal) -->
+    <div id="accessModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('accessModal')">&times;</span>
+            <div id="kyrax-terminal">
+                <h2>KYRAX Secure Terminal</h2>
+                <p>Initializing secure connection...</p>
+                <label for="username">USER NAME:</label><br>
+                <input type="text" id="username"><br><br>
+                <label for="password">PASSWORD:</label><br>
+                <input type="password" id="password"><br><br>
+                <button onclick="login()">Authorize</button>
             </div>
         </div>
-    </footer>
+    </div>
 
-    <script src="script.js"></script>
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+        }
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+        }
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            if (username && password) {
+                alert('Access Granted! Redirecting to Client Server...');
+                // In a real app, redirect to client server page or load dynamically
+                window.location.href = 'client-server.html'; // Mock redirect
+            } else {
+                alert('Invalid credentials.');
+            }
+        }
+    </script>
 </body>
 </html>
