@@ -1,1 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>SATCORP · Concierge Empire</title>
+    <!-- SATCORP Concierge theme · Tactical luxury · systems / brand / deployment -->
+    <!-- Fonts: minimalist modern with luxury serif accent -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- Vanta.js + three.js for atmospheric depth (light conic empire) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.fog.min.js"></script>
+    <style>
+        /* styles.css integrated – modular, luxury, dark/light doctrine, concierge empire */
+        :root {
+            --color-empire-black: #0C0B0E;
+            --color-concierge-charcoal: #1A181B;
+            --color-tactical-graphite: #2A272A;
+            --color-satcorp-gold: #D4B48C;
+            --color-satcorp-gold-light: #E5D3B0;
+            --color-satcorp-bronze: #B69B7C;
+            --color-ivory: #F5F0E8;
+            --color-crete-stone: #E8E1D7;
+            --color-slate: #4E4B48;
+            --color-accent-amber: #C49A6C;
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-display: 'Space Grotesk', 'Inter', sans-serif;
+            --font-serif: 'Cormorant Garamond', Georgia, serif;
+            --grid-max-width: 1440px;
+            --nav-height: 88px;
+            --transition-empire: cubic-bezier(0.28, 0.84, 0.42, 1);
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--color-empire-black);
+            color: var(--color-crete-stone);
+            font-family: var(--font-primary);
+            font-weight: 300;
+            line-height: 1.6;
+            font-size: 16px;
+            letter-spacing: 0.01em;
+            overflow-x: hidden;
+            transition: background-color 0.6s ease, color 0.3s ease;
+        }
+
+        /* dark/light doctrine – light mode concierge elegance */
+        body.light-mode {
+            background-color: var(--color-ivory);
+            color: #1E1C1A;
+            --color-empire-black: #F5F0E8;
+            --color-concierge-charcoal: #E8E1D7;
+            --color-tactical-graphite: #D6CDC2;
+            --color-satcorp-gold: #9F8B70;
+            --color-satcorp-gold-light: #B29E84;
+            --color-crete-stone: #2F2C2A;
+        }
+
+        /* vanta container – empire atmosphere */
+        #vanta-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.34;
+            mix-blend-mode: screen;
+        }
+        body.light-mode #vanta-bg {
+            opacity: 0.18;
+            mix-blend-mode: multiply;
+        }
+
+        .app {
+            position: relative;
+            z-index: 5;
+            max-width: var(--grid-max-width);
+            margin: 0 auto;
+            padding: 0 32px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(0px);
+        }
+
+        /* concierge empire header – modular, minimalist */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 32px 0 24px;
+            border-bottom: 1px solid rgba(212, 180, 140, 0.25);
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .logo-group {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+        }
+        .satcorp-wordmark {
+            font-family: var(--font-serif);
+            font-weight: 700;
+            font-size: 38px;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--color-satcorp-gold);
+            line-height: 1;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+        }
+        .concierge-tag {
+            font-family: var(--font-display);
+            font-weight: 400;
+            font-size: 18px;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--color-crete-stone);
+            border-left: 1px solid var(--color-satcorp-gold);
+            padding-left: 18px;
+            margin-left: 6px;
+            opacity: 0.9;
+        }
+        .empire-suffix {
+            font-family: var(--font-serif);
+            font-weight: 600;
+            font-size: 18px;
+            font-style: italic;
+            color: var(--color-satcorp-gold-light);
+            margin-left: 6px;
+        }
+
+        .theme-toggle {
+            background: rgba(42, 39, 42, 0.6);
+            backdrop-filter: blur(8px);
+            border: 0.6px solid var(--color-satcorp-gold);
+            color: var(--color-crete-stone);
+            padding: 10px 22px;
+            border-radius: 40px;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.4s var(--transition-empire);
+            box-shadow: 0 0 12px rgba(212,180,140,0.08);
+        }
+        .theme-toggle:hover {
+            background: var(--color-satcorp-gold);
+            color: #0C0B0E;
+            border-color: transparent;
+        }
+
+        /* concierge deck — modular skill matrix */
+        .hero-deck {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 64px;
+            align-items: end;
+        }
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(42px, 6vw, 70px);
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+            color: var(--color-crete-stone);
+        }
+        .hero-accent {
+            color: var(--color-satcorp-gold);
+            font-family: var(--font-serif);
+            font-weight: 600;
+            font-style: italic;
+            display: block;
+            font-size: 0.8em;
+            margin-top: 8px;
+            letter-spacing: 2px;
+        }
+        .skill-deck-summary {
+            border-top: 3px solid var(--color-satcorp-gold);
+            padding-top: 24px;
+            font-weight: 400;
+            font-size: 18px;
+            color: var(--color-crete-stone);
+        }
+        .skill-deck-summary span {
+            font-weight: 700;
+            color: var(--color-satcorp-gold);
+        }
+
+        .doctrine {
+            background: rgba(26, 24, 27, 0.7);
+            backdrop-filter: blur(10px);
+            border: 0.5px solid rgba(212, 180, 140, 0.3);
+            padding: 36px 40px;
+            margin-bottom: 64px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            border-radius: 2px;
+            box-shadow: 0 20px 34px -12px rgba(0,0,0,0.5);
+        }
+        body.light-mode .doctrine {
+            background: rgba(255, 250, 240, 0.75);
+            border-color: var(--color-satcorp-bronze);
+        }
+        .doctrine-quote {
+            font-family: var(--font-serif);
+            font-size: 28px;
+            font-weight: 600;
+            line-height: 1.3;
+            max-width: 60%;
+            color: var(--color-satcorp-gold-light);
+            font-style: italic;
+        }
+        .doctrine-list {
+            list-style: none;
+            padding-left: 0;
+            font-size: 15px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            border-left: 1px solid var(--color-satcorp-gold);
+            padding-left: 32px;
+        }
+        .doctrine-list li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .doctrine-list li::before {
+            content: "▹";
+            color: var(--color-satcorp-gold);
+            font-size: 18px;
+        }
+
+        /* skill empire — full deck with concierge modules */
+        .skill-empire {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin-bottom: 80px;
+        }
+        .module-section {
+            background: rgba(20, 18, 20, 0.65);
+            backdrop-filter: blur(4px);
+            border: 0.5px solid #3a3735;
+            border-left: 8px solid var(--color-satcorp-gold);
+            padding: 28px 32px;
+            transition: all 0.2s ease;
+        }
+        body.light-mode .module-section {
+            background: rgba(245, 240, 232, 0.8);
+            border-color: #B1A18B;
+        }
+        .module-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 16px;
+        }
+        .module-number {
+            font-family: var(--font-serif);
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-satcorp-gold);
+            opacity: 0.7;
+        }
+        .module-title {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 28px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--color-crete-stone);
+        }
+        .module-caps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 32px;
+            margin-top: 18px;
+            font-size: 15px;
+        }
+        .capability-tag {
+            font-weight: 500;
+            background: rgba(212, 180, 140, 0.08);
+            padding: 4px 14px;
+            border-radius: 20px;
+            border: 0.2px solid rgba(212,180,140,0.4);
+            font-size: 14px;
+            color: var(--color-satcorp-gold-light);
+        }
+        .deliverable {
+            margin-top: 20px;
+            color: #b5aa9a;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            border-top: 0.5px dashed #4a4540;
+            padding-top: 18px;
+        }
+        .deliverable strong {
+            color: var(--color-satcorp-gold);
+            font-weight: 600;
+        }
+
+        /* studio / brand pipeline */
+        .brand-lane {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin: 40px 0 60px;
+        }
+        .brand-card {
+            background: #151315;
+            padding: 28px 20px;
+            border: 0.5px solid #3d3833;
+            box-shadow: 0 10px 20px -12px black;
+        }
+        body.light-mode .brand-card {
+            background: #F0EBE4;
+            border-color: #B29E84;
+        }
+        .brand-card h4 {
+            color: var(--color-satcorp-gold);
+            font-family: var(--font-serif);
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            border-bottom: 1px solid currentColor;
+            display: inline-block;
+            padding-bottom: 4px;
+        }
+        .brand-card ul {
+            list-style: none;
+        }
+        .brand-card li {
+            font-size: 14px;
+            padding: 6px 0;
+            border-bottom: 0.2px dotted rgba(212,180,140,0.3);
+        }
+
+        /* custom cursor concierge effect – minimalist */
+        .custom-cursor {
+            width: 12px;
+            height: 12px;
+            background: var(--color-satcorp-gold);
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.08s linear;
+            opacity: 0.7;
+            box-shadow: 0 0 24px var(--color-satcorp-gold);
+        }
+
+        .footer-concierge {
+            margin-top: 80px;
+            padding: 48px 0 40px;
+            border-top: 1px solid rgba(212,180,140,0.25);
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            letter-spacing: 2px;
+            color: #9E948A;
+            text-transform: uppercase;
+        }
+
+        /* responsive modular */
+        @media (max-width: 1024px) {
+            .hero-deck { grid-template-columns: 1fr; gap: 24px; }
+            .doctrine { flex-direction: column; }
+            .doctrine-quote { max-width: 100%; margin-bottom: 24px; }
+            .brand-lane { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 720px) {
+            .app { padding: 0 20px; }
+            header { flex-direction: column; align-items: start; gap: 20px; }
+            .brand-lane { grid-template-columns: 1fr; }
+            .module-title { font-size: 22px; }
+        }
+
+        /* interactive ui/ vanta gsap style – light GSAP feel with transitions */
+        .theme-toggle, .module-section, .brand-card {
+            transition: background 0.4s ease, border-color 0.3s, box-shadow 0.5s;
+        }
+        a, .mock-link {
+            color: var(--color-satcorp-gold);
+            text-decoration: none;
+            border-bottom: 0.5px solid transparent;
+            transition: border 0.2s;
+        }
+    </style>
+</head>
+<body>
+    <div id="vanta-bg"></div>
+    <!-- custom cursor concierge signature -->
+    <div class="custom-cursor" id="conciergeCursor"></div>
+
+    <main class="app">
+
+        <!-- header: wordmark / concierge empire identity -->
+        <header>
+            <div class="logo-group">
+                <span class="satcorp-wordmark">SATCORP</span>
+                <span class="concierge-tag">Concierge</span>
+                <span class="empire-suffix">Empire</span>
+            </div>
+            <div class="theme-toggle" id="themeToggleBtn">
+                <span>☾</span> 
+                <span style="font-weight: 300;">/</span> 
+                <span>◑</span> 
+                <span style="margin-left: 6px;">DOCTRINE</span>
+            </div>
+        </header>
+
+        <!-- Core Operator identity / ANU · Ki-Ra · KYRAX · PULSΞ -->
+        <div class="hero-deck">
+            <div>
+                <h1 class="hero-title">
+                    Tactical concierge
+                    <span class="hero-accent">Bridging brand · systems · worlds</span>
+                </h1>
+                <div style="margin-top: 32px; display: flex; gap: 32px; flex-wrap: wrap;">
+                    <span style="font-weight: 600; color: var(--color-satcorp-gold);">ANU</span>
+                    <span style="color: var(--color-crete-stone);">Concierge Operator</span>
+                    <span style="font-weight: 600; color: var(--color-satcorp-gold);">KYRAX</span>
+                    <span style="color: var(--color-crete-stone);">AI concierge</span>
+                    <span style="font-weight: 600; color: var(--color-satcorp-gold);">PULSΞ</span>
+                    <span style="color: var(--color-crete-stone);">broadcast hub</span>
+                    <span style="font-weight: 600; color: var(--color-satcorp-gold);">Ki-Ra</span>
+                    <span style="color: var(--color-crete-stone);">world-building</span>
+                </div>
+            </div>
+            <div class="skill-deck-summary">
+                <span style="font-size: 44px; font-weight: 700; font-family: var(--font-serif); color: var(--color-satcorp-gold);">13</span> modules · end-to-end<br>
+                From brand foundation → game-ready assets · concierge execution.<br>
+                <span style="display: inline-block; margin-top: 16px;">⬩ Client-first, hardware-accelerated, RTX iteration ⬩</span>
+            </div>
+        </div>
+
+        <!-- doctrine: technology as force multiplier (core ethos) -->
+        <div class="doctrine">
+            <div class="doctrine-quote">
+                “Technology is a force multiplier, not a crutch. <br>We extend human intent, remove friction.”
+            </div>
+            <ul class="doctrine-list">
+                <li>AI is not a replacement for thought</li>
+                <li>Automation is not an excuse for laziness</li>
+                <li>Increase leverage · Preserve focus</li>
+                <li>Accountable for outcomes</li>
+            </ul>
+        </div>
+
+        <!-- SKILL DECK: COMPLETE CONCIERGE EMPIRE - modules 1–13 -->
+        <div class="skill-empire">
+            <!-- 1. Core Identity -->
+            <div class="module-section">
+                <div class="module-header"><span class="module-number">01</span><span class="module-title">Core Identity / Operator Value</span></div>
+                <div class="module-caps">
+                    <span class="capability-tag">End-to-end problem solver</span>
+                    <span class="capability-tag">Vague→deployable assets</span>
+                    <span class="capability-tag">RTX workflows</span>
+                    <span class="capability-tag">Client-first concierge</span>
+                    <span class="capability-tag">clarity→scope→execution→polish</span>
+                </div>
+            </div>
+            <!-- 2. Brand, Visual/Platform Systems -->
+            <div class="module-section">
+                <div class="module-header"><span class="module-number">02</span><span class="module-title">Brand · Visual · Platform</span></div>
+                <div class="module-caps">
+                    <span class="capability-tag">Identity systems</span><span class="capability-tag">Wordmark/logotype</span><span class="capability-tag">Color doctrine/typography</span>
+                    <span class="capability-tag">Brand guidelines PDF</span><span class="capability-tag">Multi-platform docs</span><span class="capability-tag">IG grids/TikTok covers</span>
+                </div>
+                <div class="deliverable"><strong>Deliverables:</strong> PNG/SVG/AI, brand books, spacing rules, editable Canva templates</div>
+            </div>
+            <!-- 3. Web Design/UI Systems -->
+            <div class="module-section">
+                <div class="module-header"><span class="module-number">03</span><span class="module-title">Web / UI · Systems</span></div>
+                <div class="module-caps">
+                    <span class="capability-tag">Landing/portfolios/dashboards</span><span class="capability-tag">Responsive</span>
+                    <span class="capability-tag">Interactive UI/Animation</span><span class="capability-tag">Dark/light modes</span>
+                    <span class="capability-tag">Custom cursors</span><span class="capability-tag">GSAP/Vanta.js</span><span class="capability-tag">SEO-ready</span>
+                </div>
+                <div class="deliverable"><strong>Stack:</strong> HTML·CSS·JS, GSAP, Vanta, React (as needed) — <strong>Hosting:</strong> local→VPS→scalable</div>
+            </div>
+            <!-- 4. Systems Architecture + advisory -->
+            <div class="module-section">
+                <div class="module-header"><span class="module-number">04</span><span class="module-title">Systems Architecture</span></div>
+                <div class="module-caps">
+                    <span class="capability-tag">SOP creation</span><span class="capability-tag">Client intake/files</span>
+                    <span class="capability-tag">AI-assisted pipelines</span><span class="capability-tag">Digital process mapping</span>
+                    <span class="capability-tag">Backend logic planning</span>
+                </div>
+                <div style="margin-top: 12px; font-style: italic; color: var(--color-satcorp-gold);">Application Layer · Advisory Layer: Brand Clarity, Scope, Scalability</div>
+            </div>
+            <!-- 5. Streaming/Broadcast/Overlay -->
+            <div class="module-section">
+                <div class="module-header"><span class="module-number">05</span><span class="module-title">Broadcast · Overlay</span></div>
+                <span class="capability-tag">OBS scene architecture</span><span class="capability-tag">Alert/HUD style</span>
+                <span class="capability-tag">Stream branding packages</span><span class="capability-tag">TikTok/live kits</span>
+                <span class="capability-tag">Animated overlays</span>
+            </div>
+            <!-- 6. AI-enhanced creative workflows -->
+            <div class="module-section">
+                <div class="module-header"><span class="module-number">06</span><span class="module-title">AI · Enhanced workflows</span></div>
+                <span class="capability-tag">Prompt engineering</span><span class="capability-tag">Brand-consistent AI visuals</span>
+                <span class="capability-tag">Rapid concept iteration</span><span class="capability-tag">Custom AI personas</span>
+                <span class="capability-tag">AI-accelerated execution</span>
+            </div>
+            <!-- 7. Game-dev / world-building (full deck) -->
+            <div class="module-section">
+                <div class="module-header"><span class="module-number">07</span><span class="module-title">Game · World Building</span></div>
+                <div style="display:flex; flex-wrap: wrap; gap: 8px;">
+                    <span class="capability-tag">Unity/Unreal</span><span class="capability-tag">Gameplay/QOL MODs</span>
+                    <span class="capability-tag">Environment/blockout</span><span class="capability-tag">Mobile prototyping</span>
+                    <span class="capability-tag">HUD/UI for games</span><span class="capability-tag">Canon/lore systems</span>
+                    <span class="capability-tag">Faction/operator design</span><span class="capability-tag">Blender · Substance</span>
+                    <span class="capability-tag">Engine-ready assets</span><span class="capability-tag">Poster/cinematic key art</span>
+                </div>
+                <div class="deliverable"><strong>Deliverables:</strong> Packaged mods, prototype builds, UI/HUD kits, world docs, source files</div>
+            </div>
+            <!-- 8. Client Experience/Concierge Skills -->
+            <div class="module-section">
+                <div class="module-header"><span class="module-number">08</span><span class="module-title">Concierge Client Experience</span></div>
+                <span class="capability-tag">Scope clarification</span><span class="capability-tag">Pre-order vetting</span>
+                <span class="capability-tag">Clear timelines</span><span class="capability-tag">Revision control</span>
+                <span class="capability-tag">Security-first communication</span>
+                <div style="margin-top:12px;"><span style="color: var(--color-satcorp-gold);">Process:</span> clarify→align→execute→polish/handoff</div>
+            </div>
+            <!-- 9. Platforms/Marketplaces -->
+            <div class="module-section">
+                <div class="module-header"><span class="module-number">09</span><span class="module-title">Platforms / Marketplaces</span></div>
+                <span class="capability-tag">Fiverr gig architecture</span><span class="capability-tag">Freelance offer structuring</span>
+                <span class="capability-tag">Basic·Standard·Premium</span><span class="capability-tag">Upsell/add-on logic</span>
+            </div>
+            <!-- 10. Documentation/Knowledge Systems -->
+            <div class="module-section">
+                <div class="module-header"><span class="module-number">10</span><span class="module-title">Doc · Knowledge Systems</span></div>
+                <span class="capability-tag">Long-form guides/databases</span><span class="capability-tag">Versioned docs</span>
+                <span class="capability-tag">Structured lists/taxonomies</span><span class="capability-tag">Canon-locked references</span>
+            </div>
+            <!-- 11. Asset Packaging/Delivery -->
+            <div class="module-section">
+                <div class="module-header"><span class="module-number">11</span><span class="module-title">Asset Packaging / Delivery</span></div>
+                <span class="capability-tag">Professional file structuring</span><span class="capability-tag">Print/web-ready exports</span>
+                <span class="capability-tag">Organized delivery</span><span class="capability-tag">Version control</span>
+                <span class="capability-tag">Long-term usability</span>
+            </div>
+            <!-- 12. Ideal Clients -->
+            <div class="module-section">
+                <div class="module-header"><span class="module-number">12</span><span class="module-title">Ideal Clients</span></div>
+                <span class="capability-tag">Founders/small businesses</span><span class="capability-tag">Creators/streamers</span>
+                <span class="capability-tag">Real estate/professional services</span><span class="capability-tag">Long-term identity</span>
+            </div>
+            <!-- 13. What makes SATCORP different + The Standard -->
+            <div class="module-section">
+                <div class="module-header"><span class="module-number">13</span><span class="module-title">SATCORP Standard</span></div>
+                <span class="capability-tag">Concierge-level execution</span><span class="capability-tag">Brand+systems in one</span>
+                <span class="capability-tag">Hardware-accelerated speed</span><span class="capability-tag">Modular/scalable</span>
+                <span class="capability-tag">World-class presentation</span>
+                <div class="deliverable" style="border-top-color: rgba(212,180,140,0.4);">New modules, systems, refinements continuously introduced.</div>
+            </div>
+        </div>
+
+        <!-- brand pipeline card examples: studio/concierge adjacency -->
+        <div class="brand-lane">
+            <div class="brand-card">
+                <h4>Ki-Ra Studios</h4>
+                <ul>
+                    <li>World-building / game dev</li>
+                    <li>Lore bibles · faction design</li>
+                    <li>Cinematic key art</li>
+                    <li>Unity/Unreal pipelines</li>
+                </ul>
+            </div>
+            <div class="brand-card">
+                <h4>KYRAX · AI</h4>
+                <ul>
+                    <li>Concierge AI agent</li>
+                    <li>Prompt frameworks</li>
+                    <li>Brand-locked visuals</li>
+                    <li>Operational agents</li>
+                </ul>
+            </div>
+            <div class="brand-card">
+                <h4>PULSΞ</h4>
+                <ul>
+                    <li>Broadcast creator hub</li>
+                    <li>OBS / overlay suites</li>
+                    <li>TikTok live kits</li>
+                    <li>Alert/HUD design</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- footer / concierge handoff -->
+        <footer class="footer-concierge">
+            <div>© SATCORP · Concierge Empire</div>
+            <div style="display: flex; gap: 32px;">
+                <span>ANU operator</span>
+                <span style="color: var(--color-satcorp-gold);">Developer Branch</span>
+                <span>v1.0 / modular</span>
+            </div>
+        </footer>
+    </main>
+
+    <!-- script.js: concierge interactive layer, custom cursor, vanta, dark/light, GSAP feel -->
+    <script>
+        (function() {
+            'use strict';
+
+            // --- VANTATM FOG: empherical concierge background (SATCORP atmosphere) 
+            let vantaEffect;
+            if (typeof VANTA !== 'undefined' && typeof THREE !== 'undefined') {
+                vantaEffect = VANTA.FOG({
+                    el: "#vanta-bg",
+                    THREE: THREE,
+                    mouseControls: true,
+                    touchControls: true,
+                    gyroControls: false,
+                    minHeight: 200.00,
+                    minWidth: 200.00,
+                    highlightColor: 0x433e3a,
+                    midtoneColor: 0x242124,
+                    lowlightColor: 0x12100e,
+                    baseColor: 0x0c0b0e,
+                    blurFactor: 0.70,
+                    speed: 1.10,
+                    zoom: 0.6
+                });
+            }
+
+            // --- custom cursor concierge (minimalist, luxury) 
+            const cursor = document.getElementById('conciergeCursor');
+            if (cursor) {
+                document.addEventListener('mousemove', (e) => {
+                    cursor.style.transform = `translate(${e.clientX - 6}px, ${e.clientY - 6}px)`;
+                });
+                document.addEventListener('mouseleave', () => {
+                    cursor.style.opacity = '0';
+                });
+                document.addEventListener('mouseenter', () => {
+                    cursor.style.opacity = '0.7';
+                });
+            }
+
+            // --- Dark/light mode doctrine toggle + local storage
+            const toggleBtn = document.getElementById('themeToggleBtn');
+            const body = document.body;
+            const applyLightMode = (isLight) => {
+                if (isLight) {
+                    body.classList.add('light-mode');
+                } else {
+                    body.classList.remove('light-mode');
+                }
+                // update vanta colors? optional – we keep base tone but light mode overrides.
+            };
+
+            // check local storage or prefer-color-scheme
+            const storedTheme = localStorage.getItem('satcorp-theme');
+            if (storedTheme === 'light') {
+                applyLightMode(true);
+            } else if (storedTheme === 'dark') {
+                applyLightMode(false);
+            } else {
+                // default to dark (empire)
+                applyLightMode(false);
+            }
+
+            toggleBtn.addEventListener('click', () => {
+                const isLight = body.classList.contains('light-mode');
+                if (isLight) {
+                    applyLightMode(false);
+                    localStorage.setItem('satcorp-theme', 'dark');
+                } else {
+                    applyLightMode(true);
+                    localStorage.setItem('satcorp-theme', 'light');
+                }
+            });
+
+            // --- small GSAP-like animation on module load (fade, but pure JS)
+            const modules = document.querySelectorAll('.module-section, .brand-card, .doctrine');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            modules.forEach(mod => {
+                mod.style.opacity = '0';
+                mod.style.transform = 'translateY(12px)';
+                mod.style.transition = 'opacity 0.7s cubic-bezier(0.28,0.84,0.42,1), transform 0.7s cubic-bezier(0.28,0.84,0.42,1)';
+                observer.observe(mod);
+            });
+
+            // interactive hover effect (ui polish)
+            console.log('SATCORP Concierge Empire — skill deck deployed.');
+        })();
+    </script>
+    <!-- ensure Vanta background works after three.js loading -->
+    <script>
+        // double-check vanta init
+        window.addEventListener('load', function() {
+            if (typeof VANTA === 'undefined' && document.getElementById('vanta-bg')) {
+                // fallback color
+                document.getElementById('vanta-bg').style.background = 'radial-gradient(circle at 30% 30%, #1E1C1A, #0C0B0E)';
+            }
+        });
+    </script>
+</body>
+    </html>
